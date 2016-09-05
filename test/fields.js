@@ -26,7 +26,7 @@ test.skip('expose mongodb properties', t => {
 	});
 });
 
-test('initialize and manage attributes', t => {
+test('initialize and manage fields', t => {
 	let data = postFixture();
 	const post = new Post(data);
 	let attrs = post.get();
@@ -38,7 +38,7 @@ test('initialize and manage attributes', t => {
 	t.deepEqual(attrs, data);
 });
 
-test('set & get property', t => {
+test('set & get fields', t => {
 	const data = postFixture();
 	const post = new Post(data);
 	post.set('author.name', 'John Doe');
@@ -46,7 +46,7 @@ test('set & get property', t => {
 	t.is(post.get('author.name'), 'John Doe');
 });
 
-test('unset property', async t => {
+test('unset fields', async t => {
 	const data = { awesome: true };
 	const post = new Post(data);
 	await post.save();
@@ -59,7 +59,7 @@ test('unset property', async t => {
 	t.falsy(post.get('awesome'));
 });
 
-test('increment property', async t => {
+test('increment fields', async t => {
 	const post = new Post({ views: 1, total: 0 });
 	await post.save();
 
@@ -72,7 +72,7 @@ test('increment property', async t => {
 	t.is(post.get('total'), 3);
 });
 
-test('fail if incrementing property on unsaved document', async t => {
+test('fail if incrementing fields on unsaved document', async t => {
 	const post = new Post({ views: 1 });
 
 	await t.throws(post.inc({ views: 1 }));
@@ -89,7 +89,7 @@ test('convert to JSON', t => {
 	t.deepEqual(parsed, attrs);
 });
 
-test('remember previous attributes', t => {
+test('remember previous fields', t => {
 	const post = new Post({ title: 'Sad title' });
 	t.is(post.get('title'), 'Sad title');
 
